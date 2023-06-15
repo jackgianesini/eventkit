@@ -1,0 +1,17 @@
+#!/bin/sh
+
+staticcheck ./...
+
+package=$(basename "$(pwd)")
+packageVersion=$(git describe --tags --abbrev=0 || echo "0.0.0")
+packageCommit=$(git rev-parse --short HEAD || echo "")
+
+cat <<EOF > manifest.go
+package $package
+
+var packageName = "$package"
+var packageVersion = "$packageVersion"
+var packageCommit = "$packageCommit"
+EOF
+
+exec git add manifest.go
