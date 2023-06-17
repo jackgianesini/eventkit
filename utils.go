@@ -10,6 +10,7 @@ func wrapLogFields(fields log.Fields) log.Fields {
 	fields["package"] = packageName
 	fields["version"] = packageVersion
 	fields["commit"] = packageCommit
+	fields["date"] = packageDate
 
 	return fields
 }

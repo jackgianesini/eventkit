@@ -8,3 +8,21 @@ if [[ $coverage != "100.00" ]]; then
   echo "Error: global coverage is $coverage%, it should be 100.00%."
   exit 1
 fi
+
+ref=$(git symbolic-ref --short HEAD || git describe --tags --exact-match HEAD)
+packageVersion=${ref##*/}
+package=$(basename "$(pwd)")
+packageCommit=$(git rev-parse --short HEAD || echo "")
+
+cat <<EOF > manifest.go
+package $package
+
+var packageName = "$package"
+var packageVersion = "$packageVersion"
+var packageCommit = "$packageCommit"
+var packageDate = "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+EOF
+
+git add manifest.go
+git commit -m "Version $packageVersion: automatic version (commit: $packageCommit)"
+git push --no-verify
