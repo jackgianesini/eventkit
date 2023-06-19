@@ -123,7 +123,7 @@ func (test *EventTestSuite) TestTriggerFuncWithBadArgs() {
 
 	err := test.instance.Trigger("OnTestArgs")
 	test.NotContains(test.log.String(), "with_args")
-	test.Contains(test.log.String(), "event callback argument mismatch")
+	test.Contains(test.log.String(), "Event callback argument mismatch")
 	fmt.Print(test.log.String())
 	test.NoError(err)
 
@@ -132,14 +132,14 @@ func (test *EventTestSuite) TestTriggerFuncWithBadArgs() {
 	test.NoError(err)
 
 	test.Contains(test.log.String(), "trigger=OnTestArgs")
-	test.NotContains(test.log.String(), "event callback argument mismatch")
+	test.NotContains(test.log.String(), "Event callback argument mismatch")
 }
 
 func (test *EventTestSuite) TestSubscribe() {
 	err := test.instance.Subscribe(&eventTest{})
 	test.NoError(err)
 
-	test.Contains(test.log.String(), "event subscribed")
+	test.Contains(test.log.String(), "Event subscribed")
 	test.Contains(test.log.String(), "eventkit/event_test.go")
 	test.Contains(test.log.String(), "->func()\" listener=test package=eventkit")
 }

@@ -53,7 +53,7 @@ func (c *callback) Call(data []any) (err error) {
 			"want": c.NumIn(),
 			"got":  len(data[0].([]any)),
 			"kind": c.Fn().String(),
-		})).Errorf("event callback argument mismatch")
+		})).Errorf("Event callback argument mismatch")
 
 		c.Disable()
 

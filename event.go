@@ -62,7 +62,7 @@ func (e *event) Subscribe(payload any) (err error) {
 
 // SubscribeFunc : Subscribe to an event with a function
 func (e *event) SubscribeFunc(listener string, callback any) error {
-	return e.GenericSubscribe(listener, callback, 1)
+	return e.GenericSubscribe(e.Resolve(listener), callback, 1)
 }
 
 // Trigger : Trigger an event
@@ -97,7 +97,7 @@ func (e *event) ReverseResolve(s string) string {
 func (e *event) GenericTrigger(name string, data ...any) (err error) {
 	log.WithFields(log.Fields{
 		"trigger": name,
-	}).Infof("event triggered")
+	}).Infof("Event triggered")
 
 	e.RLock()
 	call, ok := e.data[e.Resolve(name)]
@@ -148,7 +148,7 @@ func (e *event) GenericSubscribe(eventName string, callback any, caller int) err
 	log.WithFields(wrapLogFields(log.Fields{
 		"listener": identifier,
 		"from":     from,
-	})).Infof("event subscribed")
+	})).Infof("Event subscribed")
 
 	return nil
 }
