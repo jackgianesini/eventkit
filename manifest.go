@@ -1,6 +1,6 @@
 package eventkit
 
 var packageName = "eventkit"
-var packageVersion = "main"
-var packageCommit = "d9e37a1"
-var packageDate = "2023-06-19T02:24:59Z"
+var packageVersion = "v1.0.2"
+var packageCommit = "2f3c79b"
+var packageDate = "2023-06-19T02:25:41Z"
