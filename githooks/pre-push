@@ -9,10 +9,10 @@ if [[ $coverage != "100.00" ]]; then
   exit 1
 fi
 
-ref=$(git symbolic-ref --short HEAD || git describe --tags --exact-match HEAD)
+packageCommit=$(git rev-parse --short HEAD || echo "")
+ref=$(git describe --tags --abbrev=0 "${packageCommit}" 2>/dev/null || git symbolic-ref --short HEAD)
 packageVersion=${ref##*/}
 package=$(basename "$(pwd)")
-packageCommit=$(git rev-parse --short HEAD || echo "")
 
 cat <<EOF > manifest.go
 package $package
